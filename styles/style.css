@@ -1,0 +1,224 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+table {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 12px;
+border-radius: 10px;
+border-spacing: 0;
+text-align: center;
+}
+th {
+background: #B0B0B0;
+color: black;
+text-shadow: 0 1px 1px #2D2020;
+padding: 4px 6px;
+}
+th, td {
+border-style: solid;
+border-width: 0 1px 1px 0;
+border-color: white;
+color: black;
+text-shadow:
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #fff;
+}
+th:first-child, td:first-child {
+text-align: left;
+}
+th:first-child {
+border-top-left-radius: 2px;
+}
+th:last-child {
+border-top-right-radius: 2px;
+border-right: none;
+}
+td {
+padding: 4px 6px;
+background: #f2f2f2;
+}
+tr:last-child td:first-child {
+border-radius: 0 0 0 10px;
+}
+tr:last-child td:last-child {
+border-radius: 0 0 10px 0;
+}
+tr td:last-child {
+border-right: none;
+}
+.display-file{
+   width: 95% !important;
+   margin-top: 200px;
+
+
+}
+
+/* задаем относительное позиционирование контейнеру */
+.block{position:relative;}
+/* Оформление скрытого элемента по умолчанию */
+.hidden
+{display: none;
+position: absolute;
+bottom: 130%;
+left: 0px;
+background-color: #f2f2f2;
+color: #000;
+padding: 5px;
+text-align: center;
+-moz-box-shadow: 0 1px 1px rgba(0,0,0,.16);
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.16);
+box-shadow: 0 1px 1px rgba(0,0,0,.16);
+font-size: 12px;}
+/* Дополнительное оформление скрытого элемента(необязательно) */
+.hover + .hidden:before
+{content: " ";
+position: absolute;
+top: 98%;
+left: 10%;
+margin-left: -5px;
+border-width: 5px;
+border-style: solid;
+height: 0;
+width: 0;
+border: 7px solid transparent;
+border-right: 7px solid #fff;
+border-color: #fff transparent transparent transparent;
+z-index: 2;}
+/* Дополнительное оформление скрытого элемента(необязательно) */
+.hover + .hidden:after
+{content: " ";
+position: absolute;
+top: 100%;
+left: 10%;
+margin-left: -5px;
+border-width: 5px;
+border-style: solid;
+height: 0;
+width: 0;
+border: 7px solid transparent;
+border-right: 7px solid #fff;
+border-color: rgba(0,0,0,.16) transparent transparent transparent;
+z-index: 1;}
+/* Появление скрытого элемента при наведении */
+.hover:hover + .hidden{display: block;}
+
+.button1 {
+    background-color: #B0B0B0; /* Green */
+    border-radius: 12px;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.button1:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.import, .graph{
+  margin-top: 100px;
+  position: relative;
+  width: 500px;
+  height: 600px;
+  background-color: #f2f2f2;
+  box-shadow: 5px 5px 5px black;
+  border: 4px solid #B0B0B0;
+  border-radius: 40px;
+}
+.insert1{
+  margin-top: 100px;
+  position: relative;
+  width: 500px;
+  height: 680px;
+  background-color: #f2f2f2;
+  box-shadow: 5px 5px 5px black;
+  border: 4px solid #B0B0B0;
+  border-radius: 40px;
+}
+.insert2{
+  margin-top: 100px;
+  position: relative;
+  width: 500px;
+  height: 910px;
+  background-color: #f2f2f2;
+  box-shadow: 5px 5px 5px black;
+  border: 4px solid #B0B0B0;
+  border-radius: 40px;
+}
+.insert3{
+  margin-top: 100px;
+  position: relative;
+  width: 500px;
+  height: 2430px;
+  background-color: #f2f2f2;
+  box-shadow: 5px 5px 5px black;
+  border: 4px solid #B0B0B0;
+  border-radius: 40px;
+}
+.text{
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+}
+.chart{
+  margin-top: 100px;
+  position: relative;
+  width: 1000px;
+  height: 500px;
+  box-shadow: 5px 5px 5px black;
+  border: 4px solid #B0B0B0;
+}
+.table1{
+  margin-top: 80px;
+  position: relative;
+}
+.graph {
+  margin-left: 100px;
+}
+.form1 {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+}
+.form2 {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.form3 {
+  position: relative;
+  margin-left: 100px;
+}
+.form4 {
+  margin-top: 20px;
+  position: relative;
+  margin-left: 165px;
+}
+.form4 {
+  margin-top: 20px;
+  position: relative;
+  margin-left: 165px;
+}
+h1 {
+  color: #000000;
+  text-align: center;
+  text-shadow:
+			-1px -1px 0 #fff,
+			1px -1px 0 #fff,
+			-1px 1px 0 #fff,
+			1px 1px 0 #fff;
+}
+h3 {
+  color: #000000;
+  text-shadow:
+			-1px -1px 0 #fff,
+			1px -1px 0 #fff,
+			-1px 1px 0 #fff,
+			1px 1px 0 #fff;
+
+}
