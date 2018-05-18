@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8">
       <title>База</title>
-      <link href="style.css" rel="stylesheet">
+      <link href="styles/style.css" rel="stylesheet">
    </head>
    <body>
       <script src="scripts/script.js"></script>
