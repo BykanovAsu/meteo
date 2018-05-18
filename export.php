@@ -3,10 +3,11 @@
    <title>База</title>
    <link href="styles/style.css" rel="stylesheet">
 </head>
-<a href="index.html" class="one">Home</a>
+<a href="index.php" class="one">Home</a>
 <?php
 error_reporting(0); // Выключаем показ ошибок. Чтобы их видеть - вместо 0 поставьте E_ALL
 // подключаемся к БД
+include_once("login.php");
 require_once 'connection.php'; // подключаем скрипт
 header('Content-Type: text/csv; charset=utf-8');
 // подключаемся к серверу

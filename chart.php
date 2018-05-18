@@ -117,5 +117,5 @@ $graph->Render("Naked.png");
  * @return array
  */
 ?>
-<a href="index.html">Home</a>
+<a href="index.php">Home</a>
        <p><img src="Naked.png"></p>

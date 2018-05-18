@@ -3,8 +3,9 @@
    <title>База</title>
    <link href="styles/style.css" rel="stylesheet">
 </head>
-<a href="index.html" class="one">Home</a>
+<a href="index.php" class="one">Home</a>
 <?php
+include_once("login.php");
 error_reporting(0); // Выключаем показ ошибок. Чтобы их видеть - вместо 0 поставьте E_ALL
 // подключаемся к БД
 require_once 'connection.php'; // подключаем скрипт
