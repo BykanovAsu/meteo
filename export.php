@@ -3,13 +3,15 @@
    <title>База</title>
    <link href="styles/style.css" rel="stylesheet">
 </head>
-<a href="index.php" class="one">Home</a>
+
 <?php
 error_reporting(0); // Выключаем показ ошибок. Чтобы их видеть - вместо 0 поставьте E_ALL
 // подключаемся к БД
-include_once("login.php");
+include 'login.php';
 require_once 'connection.php'; // подключаем скрипт
 header('Content-Type: text/csv; charset=utf-8');
+if ($auth->check()){
+
 // подключаемся к серверу
 $link = mysqli_connect($host, $user, $password, $database) or die("Ошибка " . mysqli_error($link));
 mysqli_query($link, 'SET NAMES utf8');
@@ -71,5 +73,8 @@ elseif ($_POST['dan'] == "l")
   }
   echo("<h3><a href=export/$csv_filename>Сохранить</a></h3>");
 }
-
+}
+else {
+  print '<div class="form2"><h1>Авторизуйтесь</h1></div>';
+}
 ?>

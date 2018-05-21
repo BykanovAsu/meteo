@@ -11,7 +11,7 @@
 на курсач: документация, импорт, ввод данных
 */
 error_reporting(0);
-include_once("login.php");
+include 'login.php';
 include ("pChart/pChart.class");
 
 include ("pChart/pCache.class");
@@ -133,7 +133,7 @@ else {
 
 ?>
 
-<p><a href="index.php">Home</a></p>
+
 
 <div class="chart">
        <img src="Naked.png" class="png">

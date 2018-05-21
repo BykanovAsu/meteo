@@ -6,7 +6,7 @@
       <link href="styles/style.css" rel="stylesheet">
    </head>
    <body>
-      <a href="index.php" class="one">Home</a>
+
       <div class="graph">
       <h1>Выберите файл</h1>
       <form action="" method="post" enctype="multipart/form-data" class="form3">
@@ -23,7 +23,7 @@
 
 <?php
 error_reporting(0); // Выключаем показ ошибок. Чтобы их видеть - вместо 0 поставьте E_ALL
-include_once("login.php");
+include 'login.php';
 // подключаемся к БД
 require_once 'connection.php'; // подключаем скрипт
 

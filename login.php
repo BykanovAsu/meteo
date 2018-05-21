@@ -23,12 +23,12 @@ if (isset($_POST['send'])) {
 
 //~ выход
 if (isset($_GET['exit'])) $auth->exit_user();
-
+$adm=$auth->isAdmin();
 //~ Проверка авторизации
 if ($auth->check()) $r.='Добро пожаловать '.$_SESSION['login_user'].'<br/><a href="?exit">Выйти</a>';
 else {
 	//~ если есть ошибки выводим и предлагаем восстановить пароль
-	if (isset($error)) $r.=$error.'<a href="recovery.php">Восстановить пароль</a><br/>';
+	if (isset($error)) $r.=$error;
 
 	$r.='
 	<a href="join.php">Зарегистрироваться</a>
@@ -41,5 +41,6 @@ else {
 }
 	print $r;
 ?>
+<p><a href="index.php">Home</a></p>
 </body>
 </html>

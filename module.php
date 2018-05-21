@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+
 class mysql {
 	###
 	#	Подключение к бд
@@ -39,6 +39,7 @@ class mysql {
 
 class auth {
 	###
+
 	#	Проверка входных данных при регистрации
 	function check_new_user($login, $passwd, $passwd2, $mail) {
 		//~ Проверка валидности данных
@@ -81,11 +82,12 @@ class auth {
 	###
 	#	Проверка авторизации
 	function check() {
-		if (isset($_SESSION['id_user']) and isset($_SESSION['login_user'])) return true;
+		if (isset($_SESSION['id_user']) and isset($_SESSION['login_user'])) {return true; print 'Сессия';}
 		else {
 			//~ проверяем наличие кук
 			if (isset($_COOKIE['id_user']) and isset($_COOKIE['code_user'])) {
 				//~ куки есть - сверяем с таблицей сессий
+				print 'Кука';
 				$db = new mysql(); //~ создаем новый объект класса
 				$id_user=$db->screening($_COOKIE['id_user']);
 				$code_user=$db->screening($_COOKIE['code_user']);
@@ -146,6 +148,18 @@ class auth {
 		setcookie("id_user", '', time()-3600);
 		setcookie("code_user", '', time()-3600);
 		header("Location: login.php");
+	}
+	function isAdmin(){
+		$db= new mysql();
+			if (isset($_SESSION['id_user']) and isset($_SESSION['login_user']))
+			$id_user=$db->screening($_SESSION['id_user']);
+			else {
+				//~ проверяем наличие кук
+				if (isset($_COOKIE['id_user']) and isset($_COOKIE['code_user']))
+					$id_user=$db->screening($_COOKIE['id_user']);
+				}
+		$adm=$db -> query("SELECT `admin` FROM `users` WHERE `id_user` = '".$id_user."';", 'result', 0);
+		return $adm;
 	}
 
 	###

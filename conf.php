@@ -3,7 +3,7 @@ error_reporting(0);
 //~ Старт сессии, файл должен быть сохранен без DOM информации
 session_start();
 
-include_once 'module.php';
+include 'module.php';
 
 //~ Параметры потключения к бд
 $db_host = 'localhost';

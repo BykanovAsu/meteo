@@ -12,7 +12,7 @@ include_once 'conf.php';
 error_reporting(0);
 $reg = new auth();  //~ Создаем новый объект класса
 $form = '
-	<a href="join.php">Авторизоваться</a><br />
+	<a href="index.php">Авторизоваться</a><br />
 	<form action="" method="post">
 		логин <input type="text" name="login" id="" value="'.@$_POST['login'].'" /><br />
 		пароль <input type="password" name="passwd" id="" /><br />
