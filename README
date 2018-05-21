@@ -1,7 +1,7 @@
 index.php - home page;
 conf.php - configuration file;
 join.php - registration page;
-login.php - login script/module;
+login.php - authorization script/module;
 module.php - file with used classes for authorization, registration, user group check, etc.;
 export.php - export data to *.csv;
 data.php - table view of data;
