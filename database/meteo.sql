@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 17 2018 г., 16:13
+-- Время создания: Май 21 2018 г., 15:33
 -- Версия сервера: 5.7.20
 -- Версия PHP: 5.5.38
 
@@ -151,6 +151,27 @@ INSERT INTO `Lisemetric` (`Date`, `Time`, `Tens30.1`, `Tens30.1max`, `Tens30.1mi
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `session`
+--
+
+CREATE TABLE `session` (
+  `id_user` int(5) NOT NULL,
+  `code_sess` varchar(15) NOT NULL,
+  `user_agent_sess` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `session`
+--
+
+INSERT INTO `session` (`id_user`, `code_sess`, `user_agent_sess`) VALUES
+(1, 'bVNjfn4b0TlYVtK', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0'),
+(2, 'tyEqBHX2AJXDXdc', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0'),
+(3, 'vlvGe8BSG2tD4fw', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36 OPR/52.0.2871.99');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `Stational`
 --
 
@@ -193,6 +214,29 @@ INSERT INTO `Stational` (`Time`, `CThirdty`, `procdoThirdty`, `SmdoThirdty`, `CT
 ('00:00:09', 0.88, 0.05, 0.18, 0.4, 0.73, 0.71, 0.11, 0.95, 0.6, 0.23, 0.78, 0.99, 0.05, 0.22, 0.54, 0.28, 0.21, 0.32),
 ('00:01:40', 1, 2, 3, 4, 1, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `id_user` int(5) NOT NULL,
+  `login_user` varchar(60) NOT NULL,
+  `passwd_user` varchar(255) NOT NULL,
+  `mail_user` varchar(255) NOT NULL,
+  `admin` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id_user`, `login_user`, `passwd_user`, `mail_user`, `admin`) VALUES
+(1, 'admin', 'a796e80ac3e27000bc1c8d4b56989af6', 'ww@mal.rt', 1),
+(2, 'user', '522cfe01fb53177027a4d76c4842d4a7', 'kek@kek.ry', 0),
+(3, 'reader', 'a796e80ac3e27000bc1c8d4b56989af6', 'kek@k.r', 0);
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -210,10 +254,32 @@ ALTER TABLE `Lisemetric`
   ADD PRIMARY KEY (`Date`,`Time`);
 
 --
+-- Индексы таблицы `session`
+--
+ALTER TABLE `session`
+  ADD PRIMARY KEY (`id_user`);
+
+--
 -- Индексы таблицы `Stational`
 --
 ALTER TABLE `Stational`
   ADD PRIMARY KEY (`Time`);
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `id_user` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
