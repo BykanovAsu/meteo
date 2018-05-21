@@ -6,7 +6,7 @@ module.php - file with used classes for authorization, registration, user group 
 export.php - export data to *.csv;
 data.php - table view of data;
 file_upload1.php - import data to database from *.csv file;
-chart1.php - building charts;
+chart1.php - building charts ;
 insert.php - manual insert data to database;
 script.js - script for locking checkboxes;
 style.css - styles file;
