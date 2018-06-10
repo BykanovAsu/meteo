@@ -1,4 +1,17 @@
+<head>
+  <meta charset="utf-8">
+  <link href="styles/style.css" rel="stylesheet">
+</head>
 <?php
+/*подредактировать в pChart $ColorID шоб было норм в бар графике цвета ставились*/
+/*бар графики хз как сделать, мб радиобаттоны добавить как то, но тогда жестко нагромоздится на страничке
+*/
+/*
+нужно сделать редактирование базы, потом среднее по месяцам(диплом) + документацию
+на курсач: документация, импорт, ввод данных
+*/
+error_reporting(0);
+include 'login.php';
 include ("pChart/pChart.class");
 
 include ("pChart/pCache.class");
@@ -6,116 +19,122 @@ include ("pChart/pCache.class");
 include ("pChart/pData.class");
 
 $myData = new pData();
-$myData1 = new pData();
 $db = mysqli_connect("127.0.0.1", "admin", "1234", "meteo");
-$result = mysqli_query($db, "SELECT `Time`, `mm`, `deg` FROM `Hidromet` ");
+$d = [];
+$ch=0;
+if (isset($_POST['data']))
+$d=$_POST['data'];
+elseif (isset($_POST['data1']))
+{
+$d=$_POST['data1'];
+$ch=1;
+}
+else {
+  goto a;
+}
+	$conditions = [];
+	foreach($d as $data)
+		{
+		$conditions[] = "`$data`";
+		}
 
-// Тут должно быть соединение с базой, выполнение запроса.
-
-while ($row = mysqli_fetch_array($result))
-	{
-	/* Сохранение данных в массив */
-	$myData->addPoint($row["Time"], "Time");
-	if (isset($_POST['bar'])) $myData1->addPoint($row["mm"], "mm");
-	  else $myData->addPoint($row["mm"], "mm");
-	$myData->addPoint($row["deg"], "deg");
-	};
-
-// устанавливаем точки с датами
-// на ось абсцисс
-
-if (isset($_POST['bar']))
-	{
-	$myData1->SetAbsciseLabelSerie("Time");
-
-	// помечаем данные как предназначеные для
-	// отображения
-
-	$myData1->AddSerie("mm");
-	}
+	$show = implode(",  ", $conditions);
+  if($ch)
+  $result = mysqli_query($db, "SELECT `Time`, " . $show . " FROM `Stational`");
   else
-	{
-	$myData->AddSerie("mm");
-	}
+	$result = mysqli_query($db, "SELECT `Time`, " . $show . " FROM `Hidromet`");
 
-$myData->SetAbsciseLabelSerie("Time");
-$myData->AddSerie("deg");
+	while ($row = mysqli_fetch_array($result))
+		{
+		$myData->addPoint($row["Time"], "Time");
+		/* Сохранение данных в массив */
+		foreach($d as $data)
+			{
+			$myData->addPoint($row["$data"], $data);
+			}
 
-// устанавливаем имена
-// $myData->SetSerieName(mb_convert_encoding("Time",'utf-8','windows-1251'),"Time");
-// создаем график шириной в 1000 и высотой в 500 px
+		/*    $myData->addPoint($row["mm"], "mm");
+		$myData->addPoint($row["deg"], "deg");*/
+		};
 
-$graph = new pChart(1000, 500);
+	// устанавливаем точки с датами
+	// на ось абсцисс
 
-// устанавливаем шрифт и размер шрифта
+	foreach($d as $data) $myData->AddSerie("$data");
+	$myData->SetAbsciseLabelSerie("Time");
 
-$graph->setFontProperties("Fonts/tahoma.ttf", 10);
+	// устанавливаем имена
+	// $myData->SetSerieName(mb_convert_encoding("Time",'utf-8','windows-1251'),"Time");
+	// создаем график шириной в 1000 и высотой в 500 px
 
-// координаты левой верхней вершины и правой нижней
-// вершины графика
+	$graph = new pChart(1000, 500);
 
-$graph->setGraphArea(85, 30, 950, 400);
+	// устанавливаем шрифт и размер шрифта
 
-// рисуем заполненный четырехугольник
+	$graph->setFontProperties("Fonts/tahoma.ttf", 10);
 
-$graph->drawFilledRoundedRectangle(7, 7, 993, 493, 5, 240, 240, 240);
+	// координаты левой верхней вершины и правой нижней
+	// вершины графика
 
-// теперь незаполненный для эффекта тени
+	$graph->setGraphArea(85, 30, 950, 400);
 
-$graph->drawRoundedRectangle(5, 5, 995, 495, 5, 230, 230, 230);
+	// рисуем заполненный четырехугольник
 
-// прорисовываем фон графика
+	$graph->drawFilledRoundedRectangle(7, 7, 993, 493, 5, 240, 240, 240);
 
-$graph->drawGraphArea(255, 255, 255, TRUE);
+	// теперь незаполненный для эффекта тени
 
-// устанавливаем данные для графиков
+	$graph->drawRoundedRectangle(5, 5, 995, 495, 5, 230, 230, 230);
 
-if (isset($_POST['bar'])) $graph->drawScale($myData1->GetData() , $myData1->GetDataDescription() , SCALE_NORMAL, 150, 150, 150, true, 0, 2);
-  else
-	{
+	// прорисовываем фон графика
+
+	$graph->drawGraphArea(255, 255, 255, TRUE);
+
+	// устанавливаем данные для графиков
+
 	$graph->drawScale($myData->GetData() , $myData->GetDataDescription() , SCALE_NORMAL, 150, 150, 150, true, 0, 2);
-	}
 
-// рисуем сетку для графика
+	// рисуем сетку для графика
 
-$graph->drawGrid(4, TRUE, 230, 230, 230, 50);
+	$graph->drawGrid(4, TRUE, 230, 230, 230, 50);
 
-// прорисовываем линейные графики
+	// прорисовываем линейные графики
 
-$graph->drawLineGraph($myData->GetData() , $myData->GetDataDescription());
+	$graph->drawLineGraph($myData->GetData() , $myData->GetDataDescription());
 
-// рисуем точки на графике
+	// рисуем точки на графике
 
-$graph->drawPlotGraph($myData->GetData() , $myData->GetDataDescription() , 3, 2, 255, 255, 255);
+	$graph->drawPlotGraph($myData->GetData() , $myData->GetDataDescription() , 3, 2, 255, 255, 255);
 
-if (isset($_POST['bar']))
-	{
-	$graph->drawBarGraph($myData1->GetData() , $myData1->GetDataDescription() , TRUE, 40);
-	}
-  else
-	{
-	}
 
-// пишем в подвале некоторый текст
+	$graph->setFontProperties("Fonts/tahoma.ttf", 10);
 
-$graph->setFontProperties("Fonts/tahoma.ttf", 10);
+	// ложим легенду
 
-// ложим легенду
+	$graph->drawLegend(90, 35, $myData->GetDataDescription() , 255, 255, 255);
 
-$graph->drawLegend(90, 35, $myData->GetDataDescription() , 255, 255, 255);
-$graph->drawLegend(20, 60, $myData1->GetDataDescription() , 255, 255, 255);
 
-// Пишем заголовок
+	// $graph->drawLegend(90, 60, $myData1->GetDataDescription(), 255, 255, 255);
+	// Пишем заголовок
 
-$graph->setFontProperties("Fonts/tahoma.ttf", 10);
-$graph->drawTitle(480, 22, mb_convert_encoding("mm + deg", 'utf-8', 'windows-1251') , 50, 50, 50, -1, -1, true);
+	$graph->setFontProperties("Fonts/tahoma.ttf", 10);
+	$graph->drawTitle(480, 22, mb_convert_encoding("$show", 'utf-8', 'windows-1251') , 50, 50, 50, -1, -1, true);
 
-// выводим в браузер
+	// выводим в браузер
 
-$graph->Render("Naked.png");
-/**
- * @return array
- */
+	$graph->Render("Naked.png");
+  goto b;
+
+
+  a:
+  echo "Что-то пошло не так!";
+  unlink('Naked.png');
+  b:
+
 ?>
-<a href="index.php">Home</a>
-       <p><img src="Naked.png"></p>
+
+
+
+<div class="chart">
+       <img src="Naked.png" class="png">
+</div>

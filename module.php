@@ -87,7 +87,7 @@ class auth {
 			//~ проверяем наличие кук
 			if (isset($_COOKIE['id_user']) and isset($_COOKIE['code_user'])) {
 				//~ куки есть - сверяем с таблицей сессий
-				print 'Кука';
+			//	print 'Кука';
 				$db = new mysql(); //~ создаем новый объект класса
 				$id_user=$db->screening($_COOKIE['id_user']);
 				$code_user=$db->screening($_COOKIE['code_user']);
