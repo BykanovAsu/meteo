@@ -10,12 +10,12 @@
       <div class="graph">
       <h1>Выберите файл</h1>
       <form action="" method="post" enctype="multipart/form-data" class="form3">
-         <h3> <input type="radio" name="course" value="h" />Гидрометео </h3>
-         <h3> <input type="radio" name="course" value="s" />Стационарная</h3>
-         <h3> <input type="radio" name="course" value="l" />Лиземетрическая</h3>
+         <h3> <input type="radio" name="course" value="h" />Гидрометеостанция </h3>
+         <h3> <input type="radio" name="course" value="s" />Стационарная станция</h3>
+         <h3> <input type="radio" name="course" value="l" />Лизиметрическая станция</h3>
          <input type="file" name="filename" size="20" class="button1"/>
          <input type="hidden" name="update" value="ok" />
-         <input type="submit" value="Upload" class="button1"/>
+         <input type="submit" value="Загрузить" class="button1"/>
       </form>
     </div>
    </body>

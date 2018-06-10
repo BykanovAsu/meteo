@@ -39,6 +39,8 @@
       <div class="graph">
          <h1>Построение графиков</h1>
          <form action="chart.php"  method="post" enctype="multipart/form-data" class="form3">
+            <input type="radio" name="type" value="l" checked="true"/>Линейный
+            <input type="radio" name="type" value="b"/>Столбчатый
             <h3>Гидрометеостанция:</h3>
             <p>
                <input type="checkbox" id="3" name="data[]" value="mm" onclick="checkCB()"/>#1:mm

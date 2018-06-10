@@ -3,13 +3,6 @@
   <link href="styles/style.css" rel="stylesheet">
 </head>
 <?php
-/*подредактировать в pChart $ColorID шоб было норм в бар графике цвета ставились*/
-/*бар графики хз как сделать, мб радиобаттоны добавить как то, но тогда жестко нагромоздится на страничке
-*/
-/*
-нужно сделать редактирование базы, потом среднее по месяцам(диплом) + документацию
-на курсач: документация, импорт, ввод данных
-*/
 error_reporting(0);
 include 'login.php';
 include ("pChart/pChart.class");
@@ -17,7 +10,6 @@ include ("pChart/pChart.class");
 include ("pChart/pCache.class");
 
 include ("pChart/pData.class");
-
 $myData = new pData();
 $db = mysqli_connect("127.0.0.1", "admin", "1234", "meteo");
 $d = [];
@@ -29,6 +21,11 @@ elseif (isset($_POST['data1']))
 $d=$_POST['data1'];
 $ch=1;
 }
+elseif (isset($_POST['data2']))
+{
+$d=$_POST['data2'];
+$ch=2;
+}
 else {
   goto a;
 }
@@ -39,14 +36,17 @@ else {
 		}
 
 	$show = implode(",  ", $conditions);
-  if($ch)
+  if($ch==1)
   $result = mysqli_query($db, "SELECT `Time`, " . $show . " FROM `Stational`");
+  elseif($ch==2)
+  $result = mysqli_query($db, "SELECT `Date`, `Time`, " . $show . " FROM `Lisemetric`");
   else
 	$result = mysqli_query($db, "SELECT `Time`, " . $show . " FROM `Hidromet`");
 
 	while ($row = mysqli_fetch_array($result))
 		{
-		$myData->addPoint($row["Time"], "Time");
+	//	$myData->addPoint($row["Date"], "Date");
+    $myData->addPoint($row["Date"], "Time");
 		/* Сохранение данных в массив */
 		foreach($d as $data)
 			{
@@ -62,6 +62,7 @@ else {
 
 	foreach($d as $data) $myData->AddSerie("$data");
 	$myData->SetAbsciseLabelSerie("Time");
+  //$myData->SetAbsciseLabelSerie("Date");
 
 	// устанавливаем имена
 	// $myData->SetSerieName(mb_convert_encoding("Time",'utf-8','windows-1251'),"Time");
@@ -98,14 +99,16 @@ else {
 
 	$graph->drawGrid(4, TRUE, 230, 230, 230, 50);
 
-	// прорисовываем линейные графики
+	// прорисовываем линейные
 
+if ($_POST['type']=='l')
 	$graph->drawLineGraph($myData->GetData() , $myData->GetDataDescription());
+  else
+    $graph->drawBarGraph($myData->GetData() , $myData->GetDataDescription());
 
 	// рисуем точки на графике
 
 	$graph->drawPlotGraph($myData->GetData() , $myData->GetDataDescription() , 3, 2, 255, 255, 255);
-
 
 	$graph->setFontProperties("Fonts/tahoma.ttf", 10);
 
